@@ -1,0 +1,300 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2026-04-01 15:26:01.881283",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "company__brand_section",
+  "brand_name",
+  "tagline",
+  "parent_company_name",
+  "short_about",
+  "logo",
+  "favicon",
+  "contact_info_section",
+  "support_phone",
+  "whatsapp_number",
+  "support_email",
+  "contact_address",
+  "google_maps_link",
+  "social_links_section",
+  "instagram_url",
+  "linkedin_url",
+  "youtube_url",
+  "column_break_rfae",
+  "facebook_url",
+  "tiktok_url",
+  "business_timing_section",
+  "opening_time",
+  "open_days_text",
+  "column_break_sgpl",
+  "closing_time",
+  "enable_ordering",
+  "delivery__service_section",
+  "enable_delivery",
+  "enable_pickup",
+  "delivery_note",
+  "minimum_order_amount",
+  "default_delivery_fee",
+  "website_content_section",
+  "hero_title",
+  "hero_subtitle",
+  "hero_cta_text",
+  "footer_text",
+  "copyright_text",
+  "seo__metadata_section",
+  "meta_title",
+  "meta_description",
+  "og_image",
+  "canonical_base_url"
+ ],
+ "fields": [
+  {
+   "fieldname": "company__brand_section",
+   "fieldtype": "Section Break",
+   "label": "Company / brand"
+  },
+  {
+   "fieldname": "brand_name",
+   "fieldtype": "Data",
+   "label": "Brand Name"
+  },
+  {
+   "fieldname": "parent_company_name",
+   "fieldtype": "Link",
+   "label": "Parent Company Name",
+   "options": "Company"
+  },
+  {
+   "fieldname": "tagline",
+   "fieldtype": "Data",
+   "label": "Tagline"
+  },
+  {
+   "fieldname": "short_about",
+   "fieldtype": "Small Text",
+   "label": "Short About"
+  },
+  {
+   "fieldname": "logo",
+   "fieldtype": "Attach Image",
+   "label": "Logo"
+  },
+  {
+   "fieldname": "favicon",
+   "fieldtype": "Attach Image",
+   "label": "Favicon"
+  },
+  {
+   "fieldname": "contact_info_section",
+   "fieldtype": "Section Break",
+   "label": "Contact info"
+  },
+  {
+   "fieldname": "support_phone",
+   "fieldtype": "Data",
+   "label": "Support Phone",
+   "options": "Phone"
+  },
+  {
+   "fieldname": "whatsapp_number",
+   "fieldtype": "Data",
+   "label": "WhatsApp Number",
+   "options": "Phone"
+  },
+  {
+   "fieldname": "support_email",
+   "fieldtype": "Data",
+   "label": "Support Email",
+   "options": "Email"
+  },
+  {
+   "fieldname": "contact_address",
+   "fieldtype": "Small Text",
+   "label": "Contact Address"
+  },
+  {
+   "fieldname": "google_maps_link",
+   "fieldtype": "Data",
+   "label": "Google Maps Link"
+  },
+  {
+   "fieldname": "social_links_section",
+   "fieldtype": "Section Break",
+   "label": "Social links"
+  },
+  {
+   "fieldname": "instagram_url",
+   "fieldtype": "Data",
+   "label": "Instagram URL"
+  },
+  {
+   "fieldname": "facebook_url",
+   "fieldtype": "Data",
+   "label": "Facebook URL"
+  },
+  {
+   "fieldname": "tiktok_url",
+   "fieldtype": "Data",
+   "label": "TikTok URL"
+  },
+  {
+   "fieldname": "linkedin_url",
+   "fieldtype": "Data",
+   "label": "LinkedIn URL"
+  },
+  {
+   "fieldname": "youtube_url",
+   "fieldtype": "Data",
+   "label": "YouTube URL"
+  },
+  {
+   "fieldname": "column_break_rfae",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "business_timing_section",
+   "fieldtype": "Section Break",
+   "label": "Business timing"
+  },
+  {
+   "fieldname": "opening_time",
+   "fieldtype": "Time",
+   "label": "Opening Time"
+  },
+  {
+   "fieldname": "open_days_text",
+   "fieldtype": "Data",
+   "label": "Open Days Text"
+  },
+  {
+   "fieldname": "column_break_sgpl",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "closing_time",
+   "fieldtype": "Time",
+   "label": "Closing Time"
+  },
+  {
+   "default": "0",
+   "fieldname": "enable_ordering",
+   "fieldtype": "Check",
+   "label": "Enable Ordering"
+  },
+  {
+   "fieldname": "delivery__service_section",
+   "fieldtype": "Section Break",
+   "label": "Delivery / service"
+  },
+  {
+   "default": "0",
+   "fieldname": "enable_delivery",
+   "fieldtype": "Check",
+   "label": "Enable Delivery"
+  },
+  {
+   "default": "0",
+   "fieldname": "enable_pickup",
+   "fieldtype": "Check",
+   "label": "Enable Pickup"
+  },
+  {
+   "fieldname": "delivery_note",
+   "fieldtype": "Small Text",
+   "label": "Delivery Note"
+  },
+  {
+   "fieldname": "minimum_order_amount",
+   "fieldtype": "Currency",
+   "label": "Minimum Order Amount"
+  },
+  {
+   "fieldname": "default_delivery_fee",
+   "fieldtype": "Currency",
+   "label": "Default Delivery Fee"
+  },
+  {
+   "fieldname": "website_content_section",
+   "fieldtype": "Section Break",
+   "label": "Website content"
+  },
+  {
+   "fieldname": "hero_title",
+   "fieldtype": "Data",
+   "label": "Hero Title"
+  },
+  {
+   "fieldname": "hero_subtitle",
+   "fieldtype": "Small Text",
+   "label": "Hero Subtitle"
+  },
+  {
+   "fieldname": "hero_cta_text",
+   "fieldtype": "Data",
+   "label": "Hero CTA Text"
+  },
+  {
+   "fieldname": "footer_text",
+   "fieldtype": "Small Text",
+   "label": "Footer Text"
+  },
+  {
+   "fieldname": "copyright_text",
+   "fieldtype": "Data",
+   "label": "Copyright Text"
+  },
+  {
+   "fieldname": "seo__metadata_section",
+   "fieldtype": "Section Break",
+   "label": "SEO / metadata"
+  },
+  {
+   "fieldname": "meta_title",
+   "fieldtype": "Data",
+   "label": "Meta Title"
+  },
+  {
+   "fieldname": "meta_description",
+   "fieldtype": "Small Text",
+   "label": "Meta Description"
+  },
+  {
+   "fieldname": "og_image",
+   "fieldtype": "Attach Image",
+   "label": "OG Image"
+  },
+  {
+   "fieldname": "canonical_base_url",
+   "fieldtype": "Data",
+   "label": "Canonical Base URL"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2026-04-01 15:53:44.162510",
+ "modified_by": "Administrator",
+ "module": "Ury Bridge",
+ "name": "Ury Website Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

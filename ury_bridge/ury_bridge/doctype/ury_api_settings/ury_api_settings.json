@@ -1,0 +1,91 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2026-04-01 15:25:14.731805",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "frontend_base_url",
+  "erp_public_base_url",
+  "enable_public_menu_api",
+  "enable_public_order_api",
+  "enable_customer_panel",
+  "default_currency",
+  "default_company",
+  "default_price_list"
+ ],
+ "fields": [
+  {
+   "fieldname": "frontend_base_url",
+   "fieldtype": "Data",
+   "label": "Frontend Base URL"
+  },
+  {
+   "fieldname": "erp_public_base_url",
+   "fieldtype": "Data",
+   "label": "ERP Public Base URL"
+  },
+  {
+   "default": "0",
+   "fieldname": "enable_public_menu_api",
+   "fieldtype": "Check",
+   "label": "Enable Public Menu API"
+  },
+  {
+   "default": "0",
+   "fieldname": "enable_public_order_api",
+   "fieldtype": "Check",
+   "label": "Enable Public Order API"
+  },
+  {
+   "default": "0",
+   "fieldname": "enable_customer_panel",
+   "fieldtype": "Check",
+   "label": "Enable Customer Panel"
+  },
+  {
+   "fieldname": "default_currency",
+   "fieldtype": "Link",
+   "label": "Default Currency",
+   "options": "Currency"
+  },
+  {
+   "fieldname": "default_company",
+   "fieldtype": "Link",
+   "label": "Default Company",
+   "options": "Company"
+  },
+  {
+   "fieldname": "default_price_list",
+   "fieldtype": "Link",
+   "label": "Default Price List",
+   "options": "Price List"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2026-04-01 15:59:01.612928",
+ "modified_by": "Administrator",
+ "module": "Ury Bridge",
+ "name": "Ury API Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

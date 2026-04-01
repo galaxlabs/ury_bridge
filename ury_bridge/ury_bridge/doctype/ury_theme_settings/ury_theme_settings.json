@@ -1,0 +1,84 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2026-04-01 15:24:08.870950",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "primary_color",
+  "accent_color",
+  "text_color",
+  "font_family",
+  "column_break_hnks",
+  "secondary_color",
+  "background_color",
+  "button_radius"
+ ],
+ "fields": [
+  {
+   "fieldname": "primary_color",
+   "fieldtype": "Data",
+   "label": "Primary Color"
+  },
+  {
+   "fieldname": "accent_color",
+   "fieldtype": "Data",
+   "label": "Accent Color"
+  },
+  {
+   "fieldname": "text_color",
+   "fieldtype": "Data",
+   "label": "Text Color"
+  },
+  {
+   "fieldname": "font_family",
+   "fieldtype": "Data",
+   "label": "Font Family"
+  },
+  {
+   "fieldname": "column_break_hnks",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "secondary_color",
+   "fieldtype": "Data",
+   "label": "Secondary Color"
+  },
+  {
+   "fieldname": "background_color",
+   "fieldtype": "Data",
+   "label": "Background Color"
+  },
+  {
+   "fieldname": "button_radius",
+   "fieldtype": "Data",
+   "label": "Button Radius"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2026-04-01 16:12:59.521162",
+ "modified_by": "Administrator",
+ "module": "Ury Bridge",
+ "name": "Ury Theme Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
