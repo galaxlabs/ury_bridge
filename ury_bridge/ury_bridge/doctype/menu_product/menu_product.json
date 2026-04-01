@@ -1,0 +1,157 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2026-04-01 18:24:26.229818",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "title",
+  "menu_category",
+  "image",
+  "is_featured",
+  "is_active",
+  "show_on_home",
+  "available_for_delivery",
+  "available_for_pickup",
+  "column_break_hrnc",
+  "slug",
+  "product_type",
+  "sort_order",
+  "spicy_level",
+  "display_label",
+  "section_break_lymv",
+  "short_description",
+  "allergy_alert",
+  "halal_badge_text",
+  "long_description"
+ ],
+ "fields": [
+  {
+   "fieldname": "title",
+   "fieldtype": "Data",
+   "label": "Title"
+  },
+  {
+   "fieldname": "column_break_hrnc",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "slug",
+   "fieldtype": "Data",
+   "label": "Slug"
+  },
+  {
+   "fieldname": "section_break_lymv",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "short_description",
+   "fieldtype": "Small Text",
+   "label": "Short Description"
+  },
+  {
+   "fieldname": "long_description",
+   "fieldtype": "Text Editor",
+   "label": "Long Description"
+  },
+  {
+   "fieldname": "menu_category",
+   "fieldtype": "Link",
+   "label": "Menu Category",
+   "options": "Menu Category"
+  },
+  {
+   "fieldname": "product_type",
+   "fieldtype": "Select",
+   "label": "Product Type",
+   "options": "Single Item\nDeal\nFamily Pack"
+  },
+  {
+   "fieldname": "image",
+   "fieldtype": "Attach Image",
+   "label": "Image"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_featured",
+   "fieldtype": "Check",
+   "label": "Is Featured"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_active",
+   "fieldtype": "Check",
+   "label": "Is Active"
+  },
+  {
+   "fieldname": "sort_order",
+   "fieldtype": "Int",
+   "label": "Sort Order"
+  },
+  {
+   "fieldname": "allergy_alert",
+   "fieldtype": "Small Text",
+   "label": "Allergy Alert"
+  },
+  {
+   "fieldname": "halal_badge_text",
+   "fieldtype": "Small Text",
+   "label": "Halal Badge Text"
+  },
+  {
+   "fieldname": "spicy_level",
+   "fieldtype": "Select",
+   "label": "Spicy Level"
+  },
+  {
+   "fieldname": "display_label",
+   "fieldtype": "Data",
+   "label": "Display Label"
+  },
+  {
+   "default": "0",
+   "fieldname": "show_on_home",
+   "fieldtype": "Check",
+   "label": "Show on Home"
+  },
+  {
+   "default": "0",
+   "fieldname": "available_for_delivery",
+   "fieldtype": "Check",
+   "label": "Available for Delivery"
+  },
+  {
+   "default": "0",
+   "fieldname": "available_for_pickup",
+   "fieldtype": "Check",
+   "label": "Available for Pickup"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-04-01 18:37:45.083047",
+ "modified_by": "Administrator",
+ "module": "Ury Bridge",
+ "name": "Menu Product",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
