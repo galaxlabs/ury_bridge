@@ -1,6 +1,7 @@
 {
  "actions": [],
  "allow_rename": 1,
+ "autoname": "field:title",
  "creation": "2026-04-01 18:24:26.229818",
  "doctype": "DocType",
  "engine": "InnoDB",
@@ -19,6 +20,9 @@
   "sort_order",
   "spicy_level",
   "display_label",
+  "base_price",
+  "mapped_item",
+  "mapped_bundle",
   "section_break_lymv",
   "short_description",
   "allergy_alert",
@@ -29,7 +33,10 @@
   {
    "fieldname": "title",
    "fieldtype": "Data",
-   "label": "Title"
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Title",
+   "unique": 1
   },
   {
    "fieldname": "column_break_hrnc",
@@ -125,15 +132,41 @@
    "fieldname": "available_for_pickup",
    "fieldtype": "Check",
    "label": "Available for Pickup"
+  },
+  {
+   "fieldname": "base_price",
+   "fieldtype": "Currency",
+   "in_filter": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Base Price",
+   "precision": "2",
+   "width": "3"
+  },
+  {
+   "fieldname": "mapped_item",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Mapped Item",
+   "options": "Item"
+  },
+  {
+   "fieldname": "mapped_bundle",
+   "fieldtype": "Link",
+   "label": "Mapped Bundle",
+   "options": "Product Bundle"
   }
  ],
  "grid_page_length": 50,
+ "image_field": "image",
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-04-01 18:37:45.083047",
+ "modified": "2026-04-01 20:10:41.229347",
  "modified_by": "Administrator",
  "module": "Ury Bridge",
  "name": "Menu Product",
+ "naming_rule": "By fieldname",
  "owner": "Administrator",
  "permissions": [
   {
