@@ -1,7 +1,7 @@
 {
  "actions": [],
  "allow_rename": 1,
- "autoname": "field:title",
+ "autoname": "field:slug",
  "creation": "2026-04-01 18:18:55.027090",
  "doctype": "DocType",
  "engine": "InnoDB",
@@ -9,6 +9,7 @@
   "title",
   "image",
   "is_active",
+  "is_featured",
   "column_break_hycw",
   "slug",
   "sort_order",
@@ -19,8 +20,7 @@
   {
    "fieldname": "title",
    "fieldtype": "Data",
-   "label": "Title",
-   "unique": 1
+   "label": "Title"
   },
   {
    "fieldname": "column_break_hycw",
@@ -29,7 +29,8 @@
   {
    "fieldname": "slug",
    "fieldtype": "Data",
-   "label": "Slug"
+   "label": "Slug",
+   "unique": 1
   },
   {
    "fieldname": "image",
@@ -42,7 +43,7 @@
    "label": "Sort Order"
   },
   {
-   "default": "0",
+   "default": "1",
    "fieldname": "is_active",
    "fieldtype": "Check",
    "label": "Is Active"
@@ -55,13 +56,19 @@
    "fieldname": "description",
    "fieldtype": "Small Text",
    "label": "Description"
+  },
+  {
+   "default": "1",
+   "fieldname": "is_featured",
+   "fieldtype": "Check",
+   "label": "Is Featured"
   }
  ],
  "grid_page_length": 50,
  "image_field": "image",
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-04-01 20:06:21.699442",
+ "modified": "2026-04-02 14:50:13.452939",
  "modified_by": "Administrator",
  "module": "Ury Bridge",
  "name": "Menu Category",
