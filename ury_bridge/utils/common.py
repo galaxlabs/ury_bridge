@@ -42,6 +42,7 @@ def parse_request_data(payload: Any = None, **kwargs: Any) -> dict[str, Any]:
 		for key, value in kwargs.items()
 		if key not in {"cmd", "data", "_", "csrf_token"}
 	}
+	payload_from_kwargs = False
 
 	if payload is None and isinstance(filtered_kwargs.get("payload"), str):
 		raw_payload = filtered_kwargs.get("payload", "").strip()
@@ -50,6 +51,7 @@ def parse_request_data(payload: Any = None, **kwargs: Any) -> dict[str, Any]:
 				parsed_payload = json.loads(raw_payload)
 				if isinstance(parsed_payload, dict):
 					payload = parsed_payload
+					payload_from_kwargs = True
 			except Exception:
 				pass
 
@@ -77,6 +79,9 @@ def parse_request_data(payload: Any = None, **kwargs: Any) -> dict[str, Any]:
 
 	if not isinstance(payload, dict):
 		frappe.throw("Payload must be a JSON object.")
+
+	if payload_from_kwargs:
+		filtered_kwargs.pop("payload", None)
 
 	return {**payload, **filtered_kwargs}
 

@@ -25,6 +25,9 @@
   "currency",
   "price_list",
   "requested_time",
+  "allergy_acknowledged",
+  "terms_accepted",
+  "terms_accepted_at",
   "special_instructions",
   "address_section",
   "delivery_address",
@@ -169,6 +172,24 @@
    "fieldname": "requested_time",
    "fieldtype": "Datetime",
    "label": "Requested Time"
+  },
+  {
+   "default": "0",
+   "fieldname": "allergy_acknowledged",
+   "fieldtype": "Check",
+   "label": "Allergy Acknowledged"
+  },
+  {
+   "default": "0",
+   "fieldname": "terms_accepted",
+   "fieldtype": "Check",
+   "label": "Terms Accepted"
+  },
+  {
+   "fieldname": "terms_accepted_at",
+   "fieldtype": "Datetime",
+   "label": "Terms Accepted At",
+   "read_only": 1
   },
   {
    "fieldname": "special_instructions",

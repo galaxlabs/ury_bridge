@@ -60,16 +60,23 @@ def run_as_order_system_user(fn, *args, **kwargs):
 
 def normalize_order_payload(payload: dict[str, Any] | None) -> dict[str, Any]:
 	payload = payload or {}
-	customer = payload.get("customer") or {}
+	payload = extract_order_payload_root(payload)
+	customer = extract_order_customer_payload(payload)
 
-	items = payload.get("items") or []
+	items = extract_order_items(payload)
 	normalized_items = []
 	for row in items:
 		if not isinstance(row, dict):
 			continue
 		normalized_items.append(
 			{
-				"product_slug": (row.get("product_slug") or row.get("slug") or row.get("item_slug") or "").strip(),
+				"product_slug": (
+					row.get("product_slug")
+					or row.get("slug")
+					or row.get("item_slug")
+					or row.get("product")
+					or ""
+				).strip(),
 				"qty": flt(row.get("qty") or 0),
 				"selected_variant_item_code": (row.get("selected_variant_item_code") or row.get("variant_item_code") or "").strip(),
 				"selected_options": row.get("selected_options") or row.get("options") or {},
@@ -93,11 +100,41 @@ def normalize_order_payload(payload: dict[str, Any] | None) -> dict[str, Any]:
 		"special_instructions": payload.get("special_instructions") or payload.get("note") or "",
 		"requested_time": payload.get("requested_time"),
 		"allergy_confirmation": cint(payload.get("allergy_confirmation") or 0),
+		"terms_accepted": cint(payload.get("terms_accepted") or 0),
 		"app_order_id": payload.get("app_order_id") or payload.get("order_id"),
 		"delivery_fee": flt(payload.get("delivery_fee") or 0),
 		"discount_amount": flt(payload.get("discount_amount") or 0),
 		"items": normalized_items,
 	}
+
+
+def extract_order_payload_root(payload: dict[str, Any]) -> dict[str, Any]:
+	for key in ("order", "data"):
+		nested = payload.get(key)
+		if isinstance(nested, dict):
+			return nested
+	return payload
+
+
+def extract_order_customer_payload(payload: dict[str, Any]) -> dict[str, Any]:
+	customer = payload.get("customer")
+	if isinstance(customer, dict):
+		return customer
+
+	for key in ("customer_details", "profile", "contact"):
+		nested = payload.get(key)
+		if isinstance(nested, dict):
+			return nested
+
+	return {}
+
+
+def extract_order_items(payload: dict[str, Any]) -> list[dict[str, Any]]:
+	for key in ("items", "order_items", "lines", "cart_items", "cart"):
+		value = payload.get(key)
+		if isinstance(value, list):
+			return value
+	return []
 
 
 def validate_order_payload(data: dict[str, Any], is_pos: bool = False) -> None:
@@ -121,6 +158,12 @@ def validate_order_payload(data: dict[str, Any], is_pos: bool = False) -> None:
 
 	if data.get("order_type") == "Delivery" and not (customer.get("address_name") or customer.get("address_text")):
 		frappe.throw(_("Delivery address is required for delivery orders."))
+
+	if not is_pos and not cint(data.get("allergy_confirmation")):
+		frappe.throw(_("Please confirm that you have read the allergy notice before placing the order."))
+
+	if not is_pos and not cint(data.get("terms_accepted")):
+		frappe.throw(_("Please accept the terms and conditions before placing the order."))
 
 
 def validate_ordering_flags(order_type: str) -> None:
@@ -332,6 +375,9 @@ def build_cozy_order(
 			"currency": get_default_currency() or get_menu_currency(),
 			"company": get_default_company(),
 			"price_list": get_default_price_list(),
+			"allergy_acknowledged": cint(data.get("allergy_confirmation") or 0),
+			"terms_accepted": cint(data.get("terms_accepted") or 0),
+			"terms_accepted_at": now_datetime() if cint(data.get("terms_accepted") or 0) else None,
 			"special_instructions": data.get("special_instructions"),
 			"requested_time": data.get("requested_time"),
 			"delivery_address": delivery_address,

@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import json
+
 import frappe
 
 from ury_bridge.utils.common import api_response, parse_request_data
@@ -30,8 +32,7 @@ from ury_bridge.utils.order import (
 @frappe.whitelist(allow_guest=True)
 def place_order(payload=None, **kwargs):
 	request_data = parse_request_data(payload, **kwargs)
-	if isinstance(request_data.get("payload"), dict):
-		request_data = request_data["payload"]
+	request_data = _unwrap_nested_payload(request_data)
 
 	data = normalize_order_payload(request_data)
 	data["order_source"] = request_data.get("order_source") or "Web App"
@@ -53,8 +54,7 @@ def place_order(payload=None, **kwargs):
 def create_pos_order(payload=None, **kwargs):
 	ensure_staff_order_access(ptype="write")
 	request_data = parse_request_data(payload, **kwargs)
-	if isinstance(request_data.get("payload"), dict):
-		request_data = request_data["payload"]
+	request_data = _unwrap_nested_payload(request_data)
 
 	data = create_pos_order_payload(request_data)
 	validate_order_payload(data, is_pos=True)
@@ -162,3 +162,17 @@ def create_sales_invoice_from_cozy_order(order_name: str | None = None, cozy_ord
 		data={"sales_invoice": invoice.name, "docstatus": invoice.docstatus},
 		message="Sales Invoice created successfully.",
 	)
+
+
+def _unwrap_nested_payload(request_data):
+	nested_payload = request_data.get("payload")
+	if isinstance(nested_payload, dict):
+		return nested_payload
+	if isinstance(nested_payload, str) and nested_payload.strip():
+		try:
+			parsed_payload = json.loads(nested_payload)
+			if isinstance(parsed_payload, dict):
+				return parsed_payload
+		except Exception:
+			pass
+	return request_data
