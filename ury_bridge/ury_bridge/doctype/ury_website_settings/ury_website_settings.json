@@ -5,45 +5,41 @@
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
-  "company__brand_section",
+  "branding_section",
   "brand_name",
-  "tagline",
   "parent_company_name",
+  "tagline",
   "short_about",
   "logo",
   "favicon",
-  "contact_info_section",
+  "contact_section",
   "support_phone",
   "whatsapp_number",
   "support_email",
   "contact_address",
   "google_maps_link",
-  "social_links_section",
+  "social_section",
   "instagram_url",
-  "linkedin_url",
-  "youtube_url",
-  "column_break_rfae",
   "facebook_url",
   "tiktok_url",
-  "business_timing_section",
+  "youtube_url",
+  "timing_section",
   "opening_time",
-  "open_days_text",
-  "column_break_sgpl",
   "closing_time",
+  "open_days_text",
   "enable_ordering",
-  "delivery__service_section",
   "enable_delivery",
   "enable_pickup",
-  "delivery_note",
   "minimum_order_amount",
   "default_delivery_fee",
-  "website_content_section",
+  "delivery_note",
+  "content_section",
   "hero_title",
   "hero_subtitle",
   "hero_cta_text",
   "footer_text",
   "copyright_text",
-  "seo__metadata_section",
+  "seo_section",
   "meta_title",
   "meta_description",
   "og_image",
@@ -51,20 +47,20 @@
  ],
  "fields": [
   {
-   "fieldname": "company__brand_section",
+   "fieldname": "branding_section",
    "fieldtype": "Section Break",
-   "label": "Company / brand"
+   "label": "Branding"
   },
   {
    "fieldname": "brand_name",
    "fieldtype": "Data",
-   "label": "Brand Name"
+   "label": "Brand Name",
+   "reqd": 1
   },
   {
    "fieldname": "parent_company_name",
-   "fieldtype": "Link",
-   "label": "Parent Company Name",
-   "options": "Company"
+   "fieldtype": "Data",
+   "label": "Parent Company Name"
   },
   {
    "fieldname": "tagline",
@@ -87,27 +83,24 @@
    "label": "Favicon"
   },
   {
-   "fieldname": "contact_info_section",
+   "fieldname": "contact_section",
    "fieldtype": "Section Break",
-   "label": "Contact info"
+   "label": "Contact"
   },
   {
    "fieldname": "support_phone",
    "fieldtype": "Data",
-   "label": "Support Phone",
-   "options": "Phone"
+   "label": "Support Phone"
   },
   {
    "fieldname": "whatsapp_number",
    "fieldtype": "Data",
-   "label": "WhatsApp Number",
-   "options": "Phone"
+   "label": "WhatsApp Number"
   },
   {
    "fieldname": "support_email",
    "fieldtype": "Data",
-   "label": "Support Email",
-   "options": "Email"
+   "label": "Support Email"
   },
   {
    "fieldname": "contact_address",
@@ -120,9 +113,9 @@
    "label": "Google Maps Link"
   },
   {
-   "fieldname": "social_links_section",
+   "fieldname": "social_section",
    "fieldtype": "Section Break",
-   "label": "Social links"
+   "label": "Social Links"
   },
   {
    "fieldname": "instagram_url",
@@ -140,23 +133,14 @@
    "label": "TikTok URL"
   },
   {
-   "fieldname": "linkedin_url",
-   "fieldtype": "Data",
-   "label": "LinkedIn URL"
-  },
-  {
    "fieldname": "youtube_url",
    "fieldtype": "Data",
    "label": "YouTube URL"
   },
   {
-   "fieldname": "column_break_rfae",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "business_timing_section",
+   "fieldname": "timing_section",
    "fieldtype": "Section Break",
-   "label": "Business timing"
+   "label": "Business Timing and Ordering"
   },
   {
    "fieldname": "opening_time",
@@ -164,29 +148,20 @@
    "label": "Opening Time"
   },
   {
-   "fieldname": "open_days_text",
-   "fieldtype": "Data",
-   "label": "Open Days Text"
-  },
-  {
-   "fieldname": "column_break_sgpl",
-   "fieldtype": "Column Break"
-  },
-  {
    "fieldname": "closing_time",
    "fieldtype": "Time",
    "label": "Closing Time"
   },
   {
-   "default": "0",
+   "fieldname": "open_days_text",
+   "fieldtype": "Data",
+   "label": "Open Days Text"
+  },
+  {
+   "default": "1",
    "fieldname": "enable_ordering",
    "fieldtype": "Check",
    "label": "Enable Ordering"
-  },
-  {
-   "fieldname": "delivery__service_section",
-   "fieldtype": "Section Break",
-   "label": "Delivery / service"
   },
   {
    "default": "0",
@@ -195,10 +170,22 @@
    "label": "Enable Delivery"
   },
   {
-   "default": "0",
+   "default": "1",
    "fieldname": "enable_pickup",
    "fieldtype": "Check",
    "label": "Enable Pickup"
+  },
+  {
+   "default": "0",
+   "fieldname": "minimum_order_amount",
+   "fieldtype": "Currency",
+   "label": "Minimum Order Amount"
+  },
+  {
+   "default": "0",
+   "fieldname": "default_delivery_fee",
+   "fieldtype": "Currency",
+   "label": "Default Delivery Fee"
   },
   {
    "fieldname": "delivery_note",
@@ -206,19 +193,9 @@
    "label": "Delivery Note"
   },
   {
-   "fieldname": "minimum_order_amount",
-   "fieldtype": "Currency",
-   "label": "Minimum Order Amount"
-  },
-  {
-   "fieldname": "default_delivery_fee",
-   "fieldtype": "Currency",
-   "label": "Default Delivery Fee"
-  },
-  {
-   "fieldname": "website_content_section",
+   "fieldname": "content_section",
    "fieldtype": "Section Break",
-   "label": "Website content"
+   "label": "Website Content"
   },
   {
    "fieldname": "hero_title",
@@ -246,9 +223,9 @@
    "label": "Copyright Text"
   },
   {
-   "fieldname": "seo__metadata_section",
+   "fieldname": "seo_section",
    "fieldtype": "Section Break",
-   "label": "SEO / metadata"
+   "label": "SEO"
   },
   {
    "fieldname": "meta_title",
@@ -275,7 +252,7 @@
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2026-04-01 15:53:44.162510",
+ "modified": "2026-04-04 16:30:00.000000",
  "modified_by": "Administrator",
  "module": "Ury Bridge",
  "name": "Ury Website Settings",

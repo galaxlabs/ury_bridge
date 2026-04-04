@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import re
 from typing import Any
 
 import frappe
@@ -36,6 +37,22 @@ def api_error(
 
 
 def parse_request_data(payload: Any = None, **kwargs: Any) -> dict[str, Any]:
+	if payload is None:
+		request_json = frappe.request.get_json(silent=True) if getattr(frappe, "request", None) else None
+		if isinstance(request_json, dict):
+			payload = request_json
+
+	if payload is None and getattr(frappe, "request", None):
+		raw_body = frappe.request.get_data(as_text=True) or ""
+		raw_body = raw_body.strip()
+		if raw_body:
+			try:
+				parsed_body = json.loads(raw_body)
+				if isinstance(parsed_body, dict):
+					payload = parsed_body
+			except Exception:
+				pass
+
 	if isinstance(payload, str) and payload.strip():
 		payload = json.loads(payload)
 
@@ -45,7 +62,13 @@ def parse_request_data(payload: Any = None, **kwargs: Any) -> dict[str, Any]:
 	if not isinstance(payload, dict):
 		frappe.throw("Payload must be a JSON object.")
 
-	return {**payload, **kwargs}
+	filtered_kwargs = {
+		key: value
+		for key, value in kwargs.items()
+		if key not in {"cmd", "data", "_", "csrf_token"}
+	}
+
+	return {**payload, **filtered_kwargs}
 
 
 def as_bool(value: Any, default: bool = False) -> bool:
@@ -106,6 +129,12 @@ def normalize_file_url(file_url: str | None) -> str | None:
 		return file_url
 
 	return f"{base_url}{file_url}"
+
+
+def slugify_value(value: str | None) -> str:
+	text = (value or "").strip().lower()
+	text = re.sub(r"[^a-z0-9]+", "-", text)
+	return text.strip("-")
 
 
 def get_default_company() -> str:

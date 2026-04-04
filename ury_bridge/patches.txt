@@ -4,3 +4,4 @@
 
 [post_model_sync]
 # Patches added in this section will be executed after doctypes are migrated
+ury_bridge.patches.v0_0.setup_sales_order_backend

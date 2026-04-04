@@ -6,11 +6,29 @@ from ury_bridge.utils.common import api_response, as_bool
 from ury_bridge.utils.menu import (
 	get_active_categories,
 	get_menu_product_by_slug,
-	get_menu_products as get_menu_product_rows,
+	get_public_menu_payload,
+	get_public_menu_products,
 	serialize_menu_category,
 	serialize_menu_product_card,
 	serialize_menu_product_detail,
 )
+
+
+@frappe.whitelist(allow_guest=True)
+def get_public_menu(
+	category: str | None = None,
+	featured: str | None = None,
+	active_only: str | None = "1",
+	pickup_only: str | None = "0",
+):
+	filters = {
+		"category": category,
+		"featured": as_bool(featured, default=False),
+		"active_only": as_bool(active_only, default=True),
+		"pickup_only": as_bool(pickup_only, default=False),
+		"allow_order_only": True,
+	}
+	return api_response(data=get_public_menu_payload(filters))
 
 
 @frappe.whitelist(allow_guest=True)
@@ -20,13 +38,13 @@ def get_menu_categories():
 
 
 @frappe.whitelist(allow_guest=True)
-def get_menu_products_list(
+def get_menu_products(
 	category: str | None = None,
 	featured: str | None = None,
 	active_only: str | None = "1",
 	pickup_only: str | None = "0",
 ):
-	rows = get_menu_product_rows(
+	rows = get_public_menu_products(
 		{
 			"category": category,
 			"featured": as_bool(featured, default=False),
@@ -39,13 +57,13 @@ def get_menu_products_list(
 
 
 @frappe.whitelist(allow_guest=True)
-def get_menu_products(
+def get_menu_products_list(
 	category: str | None = None,
 	featured: str | None = None,
 	active_only: str | None = "1",
 	pickup_only: str | None = "0",
 ):
-	return get_menu_products_list(
+	return get_menu_products(
 		category=category,
 		featured=featured,
 		active_only=active_only,
@@ -54,6 +72,11 @@ def get_menu_products(
 
 
 @frappe.whitelist(allow_guest=True)
-def get_menu_product_detail(slug: str):
+def get_product_detail(slug: str):
 	doc = get_menu_product_by_slug(slug)
 	return api_response(data=serialize_menu_product_detail(doc))
+
+
+@frappe.whitelist(allow_guest=True)
+def get_menu_product_detail(slug: str):
+	return get_product_detail(slug=slug)

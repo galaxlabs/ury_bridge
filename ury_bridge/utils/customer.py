@@ -133,7 +133,7 @@ def find_customer_by_email_or_phone(email: str | None = None, mobile_no: str | N
 def ensure_customer_contact(
 	customer: str,
 	full_name: str,
-	email: str,
+	email: str | None = None,
 	mobile_no: str | None = None,
 ):
 	contact = frappe.get_doc(
@@ -142,7 +142,7 @@ def ensure_customer_contact(
 			"first_name": full_name,
 			"is_primary_contact": 1,
 			"is_billing_contact": 1,
-			"email_ids": [{"email_id": email, "is_primary": 1}],
+			"email_ids": [{"email_id": email, "is_primary": 1}] if email else [],
 			"phone_nos": [{"phone": mobile_no, "is_primary_mobile_no": 1}] if mobile_no else [],
 			"links": [{"link_doctype": "Customer", "link_name": customer}],
 		}
@@ -260,7 +260,7 @@ def get_recent_orders(customer: str, limit: int = 5) -> list[dict[str, Any]]:
 	return frappe.get_all(
 		"Sales Order",
 		filters={"customer": customer},
-		fields=["name", "transaction_date", "status", "grand_total"],
+		fields=["name", "transaction_date", "status", "kitchen_status", "grand_total"],
 		order_by="transaction_date desc, creation desc",
 		limit=limit,
 	)

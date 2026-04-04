@@ -5,68 +5,268 @@
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
-  "frontend_base_url",
-  "erp_public_base_url",
+  "api_access_section",
   "enable_public_menu_api",
   "enable_public_order_api",
   "enable_customer_panel",
-  "default_currency",
+  "guest_checkout_enabled",
+  "base_urls_section",
+  "frontend_base_url",
+  "erp_public_base_url",
+  "catalog_section",
+  "root_item_group",
+  "column_break_catalog",
+  "include_subgroups",
+  "include_product_bundles",
+  "menu_cache_minutes",
+  "business_defaults_section",
   "default_company",
-  "default_price_list"
+  "default_price_list",
+  "default_currency",
+  "default_order_type",
+  "fulfillment_section",
+  "default_pickup_enabled",
+  "default_delivery_enabled",
+  "minimum_order_amount",
+  "default_delivery_fee",
+  "payment_section",
+  "allow_cash_on_delivery",
+  "allow_online_payment",
+  "customer_section",
+  "auto_create_customer",
+  "auto_create_address_for_delivery",
+  "order_status_section",
+  "new_order_status",
+  "confirmed_order_status",
+  "preparing_order_status",
+  "ready_order_status",
+  "completed_order_status",
+  "cancelled_order_status"
  ],
  "fields": [
   {
-   "fieldname": "frontend_base_url",
-   "fieldtype": "Data",
-   "label": "Frontend Base URL"
+   "fieldname": "api_access_section",
+   "fieldtype": "Section Break",
+   "label": "API access"
   },
   {
-   "fieldname": "erp_public_base_url",
-   "fieldtype": "Data",
-   "label": "ERP Public Base URL"
-  },
-  {
-   "default": "0",
+   "default": "1",
    "fieldname": "enable_public_menu_api",
    "fieldtype": "Check",
    "label": "Enable Public Menu API"
   },
   {
-   "default": "0",
+   "default": "1",
    "fieldname": "enable_public_order_api",
    "fieldtype": "Check",
    "label": "Enable Public Order API"
   },
   {
-   "default": "0",
+   "default": "1",
    "fieldname": "enable_customer_panel",
    "fieldtype": "Check",
    "label": "Enable Customer Panel"
   },
   {
-   "fieldname": "default_currency",
-   "fieldtype": "Link",
-   "label": "Default Currency",
-   "options": "Currency"
+   "default": "1",
+   "fieldname": "guest_checkout_enabled",
+   "fieldtype": "Check",
+   "label": "Enable Guest Checkout"
   },
   {
+   "fieldname": "base_urls_section",
+   "fieldtype": "Section Break",
+   "label": "Base URLs"
+  },
+  {
+   "default": "https://cozykitchen.cloud",
+   "fieldname": "frontend_base_url",
+   "fieldtype": "Data",
+   "label": "Frontend Base URL"
+  },
+  {
+   "default": "https://erp.cozykitchen.cloud",
+   "fieldname": "erp_public_base_url",
+   "fieldtype": "Data",
+   "label": "ERP Public Base URL"
+  },
+  {
+   "fieldname": "catalog_section",
+   "fieldtype": "Section Break",
+   "label": "Menu / catalog"
+  },
+  {
+   "default": "Products",
+   "fieldname": "root_item_group",
+   "fieldtype": "Link",
+   "label": "Root Item Group",
+   "link_filters": "[[\"Item Group\",\"name\",\"descendants of (inclusive)\",\"Products\"]]",
+   "options": "Item Group"
+  },
+  {
+   "fieldname": "column_break_catalog",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "1",
+   "fieldname": "include_subgroups",
+   "fieldtype": "Check",
+   "label": "Include Subgroups"
+  },
+  {
+   "default": "1",
+   "fieldname": "include_product_bundles",
+   "fieldtype": "Check",
+   "label": "Include Product Bundles"
+  },
+  {
+   "default": "10",
+   "fieldname": "menu_cache_minutes",
+   "fieldtype": "Float",
+   "label": "Menu Cache Duration (Minutes)"
+  },
+  {
+   "fieldname": "business_defaults_section",
+   "fieldtype": "Section Break",
+   "label": "Business defaults"
+  },
+  {
+   "default": "Sterling Edge",
    "fieldname": "default_company",
    "fieldtype": "Link",
    "label": "Default Company",
    "options": "Company"
   },
   {
+   "default": "Menu",
    "fieldname": "default_price_list",
    "fieldtype": "Link",
    "label": "Default Price List",
    "options": "Price List"
+  },
+  {
+   "default": "GBP",
+   "fieldname": "default_currency",
+   "fieldtype": "Link",
+   "label": "Default Currency",
+   "options": "Currency"
+  },
+  {
+   "default": "Pickup",
+   "fieldname": "default_order_type",
+   "fieldtype": "Data",
+   "label": "Default Order Type"
+  },
+  {
+   "fieldname": "fulfillment_section",
+   "fieldtype": "Section Break",
+   "label": "Fulfillment"
+  },
+  {
+   "default": "1",
+   "fieldname": "default_pickup_enabled",
+   "fieldtype": "Check",
+   "label": "Enable Pickup by Default"
+  },
+  {
+   "default": "1",
+   "fieldname": "default_delivery_enabled",
+   "fieldtype": "Check",
+   "label": "Enable Delivery by Default"
+  },
+  {
+   "default": "0",
+   "fieldname": "minimum_order_amount",
+   "fieldtype": "Currency",
+   "label": "Minimum Order Amount"
+  },
+  {
+   "default": "0",
+   "fieldname": "default_delivery_fee",
+   "fieldtype": "Currency",
+   "label": "Default Delivery Fee"
+  },
+  {
+   "fieldname": "payment_section",
+   "fieldtype": "Section Break",
+   "label": "Payments"
+  },
+  {
+   "default": "1",
+   "fieldname": "allow_cash_on_delivery",
+   "fieldtype": "Check",
+   "label": "Allow Cash on Delivery"
+  },
+  {
+   "default": "1",
+   "fieldname": "allow_online_payment",
+   "fieldtype": "Check",
+   "label": "Allow Online Payment"
+  },
+  {
+   "fieldname": "customer_section",
+   "fieldtype": "Section Break",
+   "label": "Customer handling"
+  },
+  {
+   "default": "1",
+   "fieldname": "auto_create_customer",
+   "fieldtype": "Check",
+   "label": "Auto Create Customer"
+  },
+  {
+   "default": "1",
+   "fieldname": "auto_create_address_for_delivery",
+   "fieldtype": "Check",
+   "label": "Auto Create Delivery Address"
+  },
+  {
+   "fieldname": "order_status_section",
+   "fieldtype": "Section Break",
+   "label": "Order statuses"
+  },
+  {
+   "default": "Pending",
+   "fieldname": "new_order_status",
+   "fieldtype": "Data",
+   "label": "New Order Status"
+  },
+  {
+   "default": "Confirmed",
+   "fieldname": "confirmed_order_status",
+   "fieldtype": "Data",
+   "label": "Confirmed Order Status"
+  },
+  {
+   "default": "Preparing",
+   "fieldname": "preparing_order_status",
+   "fieldtype": "Data",
+   "label": "Preparing Order Status"
+  },
+  {
+   "default": "Ready",
+   "fieldname": "ready_order_status",
+   "fieldtype": "Data",
+   "label": "Ready Order Status"
+  },
+  {
+   "default": "Completed",
+   "fieldname": "completed_order_status",
+   "fieldtype": "Data",
+   "label": "Completed Order Status"
+  },
+  {
+   "default": "Cancelled",
+   "fieldname": "cancelled_order_status",
+   "fieldtype": "Data",
+   "label": "Cancelled Order Status"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2026-04-01 15:59:01.612928",
+ "modified": "2026-04-04 11:31:10.537063",
  "modified_by": "Administrator",
  "module": "Ury Bridge",
  "name": "Ury API Settings",

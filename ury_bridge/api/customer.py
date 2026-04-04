@@ -82,13 +82,18 @@ def get_my_profile():
 				{
 					"order_id": row.name,
 					"date": str(row.transaction_date),
-					"status": row.status,
+					"status": row.kitchen_status or row.status,
 					"total": row.grand_total,
 				}
 				for row in recent_orders
 			],
 		}
 	)
+
+
+@frappe.whitelist()
+def get_profile():
+	return get_my_profile()
 
 
 @frappe.whitelist()
