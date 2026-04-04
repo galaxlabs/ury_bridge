@@ -37,6 +37,22 @@ def api_error(
 
 
 def parse_request_data(payload: Any = None, **kwargs: Any) -> dict[str, Any]:
+	filtered_kwargs = {
+		key: value
+		for key, value in kwargs.items()
+		if key not in {"cmd", "data", "_", "csrf_token"}
+	}
+
+	if payload is None and isinstance(filtered_kwargs.get("payload"), str):
+		raw_payload = filtered_kwargs.get("payload", "").strip()
+		if raw_payload:
+			try:
+				parsed_payload = json.loads(raw_payload)
+				if isinstance(parsed_payload, dict):
+					payload = parsed_payload
+			except Exception:
+				pass
+
 	if payload is None:
 		request_json = frappe.request.get_json(silent=True) if getattr(frappe, "request", None) else None
 		if isinstance(request_json, dict):
@@ -61,12 +77,6 @@ def parse_request_data(payload: Any = None, **kwargs: Any) -> dict[str, Any]:
 
 	if not isinstance(payload, dict):
 		frappe.throw("Payload must be a JSON object.")
-
-	filtered_kwargs = {
-		key: value
-		for key, value in kwargs.items()
-		if key not in {"cmd", "data", "_", "csrf_token"}
-	}
 
 	return {**payload, **filtered_kwargs}
 
