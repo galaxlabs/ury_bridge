@@ -136,6 +136,24 @@ def ensure_customer_contact(
 	email: str | None = None,
 	mobile_no: str | None = None,
 ):
+	existing_contact_names = frappe.get_all(
+		"Dynamic Link",
+		filters={
+			"link_doctype": "Customer",
+			"link_name": customer,
+			"parenttype": "Contact",
+		},
+		pluck="parent",
+	)
+	if existing_contact_names:
+		contact = frappe.get_doc("Contact", existing_contact_names[0])
+		if email and not any(row.email_id == email for row in contact.email_ids):
+			contact.append("email_ids", {"email_id": email, "is_primary": 1 if not contact.email_ids else 0})
+		if mobile_no and not any(row.phone == mobile_no for row in contact.phone_nos):
+			contact.append("phone_nos", {"phone": mobile_no, "is_primary_mobile_no": 1 if not contact.phone_nos else 0})
+		contact.save(ignore_permissions=True)
+		return contact
+
 	contact = frappe.get_doc(
 		{
 			"doctype": "Contact",
@@ -258,9 +276,9 @@ def serialize_address(doc: dict[str, Any]) -> dict[str, Any]:
 
 def get_recent_orders(customer: str, limit: int = 5) -> list[dict[str, Any]]:
 	return frappe.get_all(
-		"Sales Order",
+		"Cozy Order",
 		filters={"customer": customer},
-		fields=["name", "transaction_date", "status", "kitchen_status", "grand_total"],
-		order_by="transaction_date desc, creation desc",
+		fields=["name", "creation", "order_status", "total_amount"],
+		order_by="creation desc",
 		limit=limit,
 	)

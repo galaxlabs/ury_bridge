@@ -81,9 +81,9 @@ def get_my_profile():
 			"recent_orders": [
 				{
 					"order_id": row.name,
-					"date": str(row.transaction_date),
-					"status": row.kitchen_status or row.status,
-					"total": row.grand_total,
+					"date": str(row.creation),
+					"status": row.order_status,
+					"total": row.total_amount,
 				}
 				for row in recent_orders
 			],

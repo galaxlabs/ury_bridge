@@ -26,7 +26,7 @@ def get_public_menu(
 		"featured": as_bool(featured, default=False),
 		"active_only": as_bool(active_only, default=True),
 		"pickup_only": as_bool(pickup_only, default=False),
-		"allow_order_only": True,
+		"allow_order_only": False,
 	}
 	return api_response(data=get_public_menu_payload(filters))
 
@@ -50,7 +50,7 @@ def get_menu_products(
 			"featured": as_bool(featured, default=False),
 			"active_only": as_bool(active_only, default=True),
 			"pickup_only": as_bool(pickup_only, default=False),
-			"allow_order_only": True,
+			"allow_order_only": False,
 		}
 	)
 	return api_response(data=[serialize_menu_product_card(row) for row in rows])

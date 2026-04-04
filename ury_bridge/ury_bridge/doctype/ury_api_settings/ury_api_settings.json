@@ -32,6 +32,15 @@
   "payment_section",
   "allow_cash_on_delivery",
   "allow_online_payment",
+  "payment_gateway_provider",
+  "stripe_publishable_key",
+  "stripe_secret_key",
+  "stripe_webhook_secret",
+  "stripe_success_url",
+  "stripe_cancel_url",
+  "auto_confirm_paid_orders",
+  "auto_start_preparing_after_payment",
+  "delivery_charge_item",
   "customer_section",
   "auto_create_customer",
   "auto_create_address_for_delivery",
@@ -202,6 +211,56 @@
    "fieldname": "allow_online_payment",
    "fieldtype": "Check",
    "label": "Allow Online Payment"
+  },
+  {
+   "default": "Stripe",
+   "fieldname": "payment_gateway_provider",
+   "fieldtype": "Select",
+   "label": "Payment Gateway Provider",
+   "options": "Stripe"
+  },
+  {
+   "fieldname": "stripe_publishable_key",
+   "fieldtype": "Data",
+   "label": "Stripe Publishable Key"
+  },
+  {
+   "fieldname": "stripe_secret_key",
+   "fieldtype": "Password",
+   "label": "Stripe Secret Key"
+  },
+  {
+   "fieldname": "stripe_webhook_secret",
+   "fieldtype": "Password",
+   "label": "Stripe Webhook Secret"
+  },
+  {
+   "fieldname": "stripe_success_url",
+   "fieldtype": "Data",
+   "label": "Stripe Success URL"
+  },
+  {
+   "fieldname": "stripe_cancel_url",
+   "fieldtype": "Data",
+   "label": "Stripe Cancel URL"
+  },
+  {
+   "default": "1",
+   "fieldname": "auto_confirm_paid_orders",
+   "fieldtype": "Check",
+   "label": "Auto Confirm Paid Orders"
+  },
+  {
+   "default": "0",
+   "fieldname": "auto_start_preparing_after_payment",
+   "fieldtype": "Check",
+   "label": "Auto Start Preparing After Payment"
+  },
+  {
+   "fieldname": "delivery_charge_item",
+   "fieldtype": "Link",
+   "label": "Delivery Charge Item",
+   "options": "Item"
   },
   {
    "fieldname": "customer_section",

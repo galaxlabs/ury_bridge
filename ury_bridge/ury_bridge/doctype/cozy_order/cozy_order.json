@@ -1,0 +1,355 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2026-04-04 16:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "naming_series",
+  "customer_section",
+  "customer",
+  "customer_name",
+  "portal_user",
+  "column_break_customer",
+  "customer_phone",
+  "customer_email",
+  "order_context_section",
+  "order_source",
+  "order_type",
+  "order_status",
+  "payment_method",
+  "payment_status",
+  "column_break_context",
+  "company",
+  "currency",
+  "price_list",
+  "requested_time",
+  "special_instructions",
+  "address_section",
+  "delivery_address",
+  "delivery_address_text",
+  "payment_section",
+  "payment_gateway",
+  "payment_intent_id",
+  "checkout_session_id",
+  "gateway_charge_id",
+  "gateway_customer_id",
+  "payment_confirmed_at",
+  "column_break_gateway",
+  "pos_reference",
+  "order_confirmed_at",
+  "preparing_at",
+  "ready_at",
+  "dispatched_at",
+  "completed_at",
+  "cancelled_at",
+  "cancellation_reason",
+  "accounting_section",
+  "subtotal",
+  "delivery_fee",
+  "discount_amount",
+  "total_amount",
+  "sales_invoice",
+  "items_section",
+  "items"
+ ],
+ "fields": [
+  {
+   "default": "COZY-ORD-.YYYY.-.#####",
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Series",
+   "options": "COZY-ORD-.YYYY.-.#####",
+   "reqd": 1
+  },
+  {
+   "fieldname": "customer_section",
+   "fieldtype": "Section Break",
+   "label": "Customer"
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "label": "Customer",
+   "options": "Customer",
+   "reqd": 1
+  },
+  {
+   "fieldname": "customer_name",
+   "fieldtype": "Data",
+   "label": "Customer Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "portal_user",
+   "fieldtype": "Link",
+   "label": "Portal User",
+   "options": "User"
+  },
+  {
+   "fieldname": "column_break_customer",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "customer_phone",
+   "fieldtype": "Data",
+   "label": "Customer Phone"
+  },
+  {
+   "fieldname": "customer_email",
+   "fieldtype": "Data",
+   "label": "Customer Email"
+  },
+  {
+   "fieldname": "order_context_section",
+   "fieldtype": "Section Break",
+   "label": "Order Context"
+  },
+  {
+   "fieldname": "order_source",
+   "fieldtype": "Select",
+   "label": "Order Source",
+   "options": "Web App\nMobile App\nPOS\nAdmin\nWhatsApp",
+   "reqd": 1
+  },
+  {
+   "fieldname": "order_type",
+   "fieldtype": "Select",
+   "label": "Order Type",
+   "options": "Delivery\nPickup",
+   "reqd": 1
+  },
+  {
+   "fieldname": "order_status",
+   "fieldtype": "Data",
+   "label": "Order Status",
+   "reqd": 1
+  },
+  {
+   "fieldname": "payment_method",
+   "fieldtype": "Select",
+   "label": "Payment Method",
+   "options": "Cash\nCard\nApple Pay\nGoogle Pay\nBank Transfer",
+   "reqd": 1
+  },
+  {
+   "fieldname": "payment_status",
+   "fieldtype": "Select",
+   "label": "Payment Status",
+   "options": "Unpaid\nPending Confirmation\nCOD\nPaid\nFailed\nRefunded",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_context",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company",
+   "reqd": 1
+  },
+  {
+   "fieldname": "currency",
+   "fieldtype": "Link",
+   "label": "Currency",
+   "options": "Currency",
+   "reqd": 1
+  },
+  {
+   "fieldname": "price_list",
+   "fieldtype": "Link",
+   "label": "Price List",
+   "options": "Price List",
+   "reqd": 1
+  },
+  {
+   "fieldname": "requested_time",
+   "fieldtype": "Datetime",
+   "label": "Requested Time"
+  },
+  {
+   "fieldname": "special_instructions",
+   "fieldtype": "Small Text",
+   "label": "Special Instructions"
+  },
+  {
+   "fieldname": "address_section",
+   "fieldtype": "Section Break",
+   "label": "Delivery"
+  },
+  {
+   "fieldname": "delivery_address",
+   "fieldtype": "Link",
+   "label": "Delivery Address",
+   "options": "Address"
+  },
+  {
+   "fieldname": "delivery_address_text",
+   "fieldtype": "Small Text",
+   "label": "Delivery Address Text"
+  },
+  {
+   "fieldname": "payment_section",
+   "fieldtype": "Section Break",
+   "label": "Gateway and Timeline"
+  },
+  {
+   "fieldname": "payment_gateway",
+   "fieldtype": "Data",
+   "label": "Payment Gateway"
+  },
+  {
+   "fieldname": "payment_intent_id",
+   "fieldtype": "Data",
+   "label": "Payment Intent ID"
+  },
+  {
+   "fieldname": "checkout_session_id",
+   "fieldtype": "Data",
+   "label": "Checkout Session ID"
+  },
+  {
+   "fieldname": "gateway_charge_id",
+   "fieldtype": "Data",
+   "label": "Gateway Charge ID"
+  },
+  {
+   "fieldname": "gateway_customer_id",
+   "fieldtype": "Data",
+   "label": "Gateway Customer ID"
+  },
+  {
+   "fieldname": "payment_confirmed_at",
+   "fieldtype": "Datetime",
+   "label": "Payment Confirmed At"
+  },
+  {
+   "fieldname": "column_break_gateway",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "pos_reference",
+   "fieldtype": "Data",
+   "label": "POS Reference"
+  },
+  {
+   "fieldname": "order_confirmed_at",
+   "fieldtype": "Datetime",
+   "label": "Order Confirmed At"
+  },
+  {
+   "fieldname": "preparing_at",
+   "fieldtype": "Datetime",
+   "label": "Preparing At"
+  },
+  {
+   "fieldname": "ready_at",
+   "fieldtype": "Datetime",
+   "label": "Ready At"
+  },
+  {
+   "fieldname": "dispatched_at",
+   "fieldtype": "Datetime",
+   "label": "Dispatched At"
+  },
+  {
+   "fieldname": "completed_at",
+   "fieldtype": "Datetime",
+   "label": "Completed At"
+  },
+  {
+   "fieldname": "cancelled_at",
+   "fieldtype": "Datetime",
+   "label": "Cancelled At"
+  },
+  {
+   "fieldname": "cancellation_reason",
+   "fieldtype": "Small Text",
+   "label": "Cancellation Reason"
+  },
+  {
+   "fieldname": "accounting_section",
+   "fieldtype": "Section Break",
+   "label": "Accounting"
+  },
+  {
+   "fieldname": "subtotal",
+   "fieldtype": "Currency",
+   "label": "Subtotal",
+   "read_only": 1
+  },
+  {
+   "fieldname": "delivery_fee",
+   "fieldtype": "Currency",
+   "label": "Delivery Fee"
+  },
+  {
+   "fieldname": "discount_amount",
+   "fieldtype": "Currency",
+   "label": "Discount Amount"
+  },
+  {
+   "fieldname": "total_amount",
+   "fieldtype": "Currency",
+   "label": "Total Amount",
+   "read_only": 1
+  },
+  {
+   "fieldname": "sales_invoice",
+   "fieldtype": "Link",
+   "label": "Sales Invoice",
+   "options": "Sales Invoice",
+   "read_only": 1
+  },
+  {
+   "fieldname": "items_section",
+   "fieldtype": "Section Break",
+   "label": "Items"
+  },
+  {
+   "fieldname": "items",
+   "fieldtype": "Table",
+   "label": "Items",
+   "options": "Cozy Order Item",
+   "reqd": 1
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "module": "Ury Bridge",
+ "name": "Cozy Order",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "Desk User",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "search_fields": "customer_name,customer_phone,customer_email,sales_invoice,payment_intent_id,checkout_session_id,pos_reference",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "customer_name",
+ "track_changes": 1
+}
