@@ -11,3 +11,7 @@ class CozyOrder(Document):
 		self.discount_amount = flt(self.discount_amount)
 		self.total_amount = flt(self.subtotal) + flt(self.delivery_fee) - flt(self.discount_amount)
 
+	def on_update(self):
+		from ury_bridge.utils.order import update_order_timestamps
+
+		update_order_timestamps(self)

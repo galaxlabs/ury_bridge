@@ -788,20 +788,36 @@ def apply_cozy_order_workflow_action(order_name: str, action: str):
 
 def update_order_timestamps(order_doc) -> None:
 	now_value = now_datetime()
-	changed = False
-	state_field_map = {
-		"Confirmed": "order_confirmed_at",
-		"Preparing": "preparing_at",
-		"Ready": "ready_at",
-		"Out for Delivery": "dispatched_at",
-		"Completed": "completed_at",
-		"Cancelled": "cancelled_at",
-	}
-	fieldname = state_field_map.get(order_doc.order_status)
-	if fieldname and not getattr(order_doc, fieldname):
-		order_doc.db_set(fieldname, now_value, update_modified=False)
-		changed = True
-	if changed:
+	changed_fields: list[str] = []
+
+	progression = [
+		("Confirmed", "order_confirmed_at"),
+		("Preparing", "preparing_at"),
+		("Ready", "ready_at"),
+		("Completed", "completed_at"),
+	]
+	if order_doc.order_type == "Delivery":
+		progression.insert(3, ("Out for Delivery", "dispatched_at"))
+	state_rank = {state: index for index, (state, _) in enumerate(progression)}
+	current_rank = state_rank.get(order_doc.order_status)
+
+	if current_rank is not None:
+		for index, (_, fieldname) in enumerate(progression):
+			if index > current_rank:
+				break
+			if not getattr(order_doc, fieldname):
+				order_doc.db_set(fieldname, now_value, update_modified=False)
+				changed_fields.append(fieldname)
+
+	if order_doc.order_status == "Cancelled" and not getattr(order_doc, "cancelled_at"):
+		order_doc.db_set("cancelled_at", now_value, update_modified=False)
+		changed_fields.append("cancelled_at")
+
+	if order_doc.order_status == "Rejected" and not getattr(order_doc, "cancelled_at"):
+		order_doc.db_set("cancelled_at", now_value, update_modified=False)
+		changed_fields.append("cancelled_at")
+
+	if changed_fields:
 		order_doc.reload()
 
 
