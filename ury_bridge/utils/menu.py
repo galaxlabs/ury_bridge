@@ -382,18 +382,77 @@ def get_item_variants(item_code: str) -> list[dict[str, Any]]:
 
 def get_bundle_summary(bundle_name: str) -> dict[str, Any]:
 	bundle = frappe.get_doc("Product Bundle", bundle_name)
+	items = []
+	selectable_components = []
+	for row in bundle.items or []:
+		component = {
+			"item_code": row.item_code,
+			"qty": flt(row.qty),
+			"description": row.description,
+		}
+		selector = build_bundle_component_selector(row.item_code, row.description, row.qty)
+		if selector:
+			component["selector_key"] = selector["component_key"]
+			component["selectable"] = True
+			selectable_components.append(selector)
+		items.append(component)
+
 	return {
 		"bundle_name": bundle.name,
 		"parent_item_code": bundle.new_item_code,
-		"items": [
+		"items": items,
+		"selectable_components": selectable_components,
+	}
+
+
+def build_bundle_component_selector(
+	item_code: str,
+	description: str | None = None,
+	included_qty: float | None = None,
+) -> dict[str, Any] | None:
+	item_doc = frappe.db.get_value(
+		"Item",
+		item_code,
+		["name", "item_name", "variant_of", "item_group"],
+		as_dict=True,
+	)
+	if not item_doc or not item_doc.variant_of:
+		return None
+	if (item_doc.item_group or "").strip().lower() != "drinks":
+		return None
+
+	template_doc = frappe.db.get_value(
+		"Item",
+		item_doc.variant_of,
+		["name", "item_name"],
+		as_dict=True,
+	)
+	if not template_doc:
+		return None
+
+	return {
+		"component_key": item_code,
+		"label": template_doc.item_name or item_doc.item_name or description or item_code,
+		"included_qty": flt(included_qty or 1),
+		"template_item_code": template_doc.name,
+		"template_item_name": template_doc.item_name or template_doc.name,
+		"default_variant_item_code": item_code,
+		"default_variant_label": item_doc.item_name or description or item_code,
+		"variants": [
 			{
-				"item_code": row.item_code,
-				"qty": flt(row.qty),
-				"description": row.description,
+				**variant,
+				"label": format_variant_label(variant),
 			}
-			for row in bundle.items or []
+			for variant in get_item_variants(template_doc.name)
 		],
 	}
+
+
+def format_variant_label(variant: dict[str, Any]) -> str:
+	attributes = variant.get("attributes") or {}
+	if attributes:
+		return " / ".join(str(value) for value in attributes.values() if value)
+	return variant.get("item_name") or variant.get("item_code") or "Variant"
 
 
 def get_item_display_price(item_code: str, has_variants: bool = False) -> dict[str, Any]:

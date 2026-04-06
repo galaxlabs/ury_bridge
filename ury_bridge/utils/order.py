@@ -80,6 +80,7 @@ def normalize_order_payload(payload: dict[str, Any] | None) -> dict[str, Any]:
 				"qty": flt(row.get("qty") or 0),
 				"selected_variant_item_code": (row.get("selected_variant_item_code") or row.get("variant_item_code") or "").strip(),
 				"selected_options": row.get("selected_options") or row.get("options") or {},
+				"bundle_selections": row.get("bundle_selections") or row.get("bundle_options") or {},
 				"notes": row.get("notes") or row.get("note"),
 			}
 		)
@@ -329,6 +330,7 @@ def resolve_bundle_order_item(product: dict[str, Any], qty: float, row: dict[str
 	bundle_summary = get_bundle_summary(product["_bundle_name"])
 	if not bundle_summary["items"]:
 		frappe.throw(_("Product bundle {0} has no bundle items configured.").format(product["title"]))
+	bundle_summary = apply_bundle_component_selections(bundle_summary, row.get("bundle_selections"), qty)
 
 	return {
 		"item_code": product["_item_code"],
@@ -342,6 +344,86 @@ def resolve_bundle_order_item(product: dict[str, Any], qty: float, row: dict[str
 		"variant_snapshot_json": None,
 		"bundle_snapshot_json": json.dumps(bundle_summary),
 	}
+
+
+def apply_bundle_component_selections(
+	bundle_summary: dict[str, Any],
+	bundle_selections: dict[str, Any] | None,
+	order_qty: float,
+) -> dict[str, Any]:
+	bundle_selections = bundle_selections or {}
+	selectable_components = bundle_summary.get("selectable_components") or []
+	if not selectable_components:
+		return bundle_summary
+
+	selected_map = {
+		str(key): normalize_bundle_selection_values(value)
+		for key, value in bundle_selections.items()
+	}
+	items = []
+	for item in bundle_summary.get("items") or []:
+		updated_item = dict(item)
+		selector_key = updated_item.get("selector_key")
+		component = next(
+			(
+				row
+				for row in selectable_components
+				if row.get("component_key") == selector_key
+			),
+			None,
+		)
+		if component:
+			valid_variants = {
+				variant.get("item_code"): variant
+				for variant in component.get("variants") or []
+				if variant.get("item_code")
+			}
+			required_slots = max(1, cint(round(flt(component.get("included_qty") or updated_item.get("qty") or 1) * flt(order_qty or 1))))
+			selected_codes = selected_map.get(selector_key) or []
+			selected_codes = [code for code in selected_codes if code in valid_variants]
+			default_code = component.get("default_variant_item_code")
+			while len(selected_codes) < required_slots and default_code:
+				selected_codes.append(default_code)
+			selected_codes = selected_codes[:required_slots]
+			if not selected_codes:
+				frappe.throw(_("Please select bundle variants for {0}.").format(component.get("label")))
+
+			grouped_counts: dict[str, int] = {}
+			for code in selected_codes:
+				grouped_counts[code] = grouped_counts.get(code, 0) + 1
+
+			for code, selected_count in grouped_counts.items():
+				selected_variant = valid_variants.get(code)
+				if not selected_variant:
+					frappe.throw(_("Selected bundle variant does not exist for {0}.").format(component.get("label")))
+				items.append(
+					{
+						**updated_item,
+						"item_code": selected_variant["item_code"],
+						"qty": flt(selected_count),
+						"description": selected_variant.get("item_name") or updated_item.get("description"),
+						"selected_variant_item_code": selected_variant["item_code"],
+						"selected_variant_label": selected_variant.get("label"),
+						"selected_variant_codes": selected_codes,
+					}
+				)
+			continue
+
+		updated_item["qty"] = flt(updated_item.get("qty") or 0) * flt(order_qty or 1)
+		items.append(updated_item)
+
+	return {
+		**bundle_summary,
+		"items": items,
+	}
+
+
+def normalize_bundle_selection_values(value: Any) -> list[str]:
+	if isinstance(value, list):
+		return [str(row).strip() for row in value if str(row).strip()]
+	if isinstance(value, str) and value.strip():
+		return [value.strip()]
+	return []
 
 
 def build_cozy_order(
