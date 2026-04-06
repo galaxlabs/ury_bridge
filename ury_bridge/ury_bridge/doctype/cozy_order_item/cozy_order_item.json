@@ -41,7 +41,7 @@
    "list_view": 1
   },
   {
-   "fieldname": "`rate",
+   "fieldname": "rate",
    "fieldtype": "Currency",
    "label": "Rate",
    "reqd": 1,
