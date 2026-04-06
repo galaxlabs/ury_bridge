@@ -16,6 +16,7 @@ from ury_bridge.utils.order import (
 	get_admin_orders as get_admin_order_rows,
 	get_cozy_order_detail_payload,
 	get_customer_orders,
+	get_orders_for_guest_tracking,
 	get_or_create_order_customer,
 	get_order_doc_for_tracking,
 	mark_pickup_paid as mark_pickup_order_paid,
@@ -124,6 +125,25 @@ def get_my_orders(limit_start: int = 0, limit_page_length: int = 20):
 def get_order_status(order_id: str, email: str | None = None, phone: str | None = None):
 	order_doc = get_order_doc_for_tracking(order_id=order_id, email=email, phone=phone)
 	return api_response(data=serialize_order_tracking(order_doc))
+
+
+@frappe.whitelist(allow_guest=True)
+def find_my_orders(email: str | None = None, phone: str | None = None, limit_page_length: int = 10):
+	rows = get_orders_for_guest_tracking(email=email, phone=phone, limit=limit_page_length)
+	return api_response(
+		data=[
+			{
+				"order_id": row.name,
+				"date": str(row.creation),
+				"status": row.order_status,
+				"total": row.total_amount,
+				"currency": row.currency,
+				"payment_status": row.payment_status,
+				"pickup_delivery_type": row.order_type,
+			}
+			for row in rows
+		]
+	)
 
 
 @frappe.whitelist(allow_guest=True)

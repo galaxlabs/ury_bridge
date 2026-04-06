@@ -608,6 +608,37 @@ def get_order_doc_for_tracking(order_id: str, email: str | None = None, phone: s
 	frappe.throw(_("Order not found."))
 
 
+def get_orders_for_guest_tracking(email: str | None = None, phone: str | None = None, limit: int = 10):
+	email = (email or "").strip().lower()
+	phone = (phone or "").strip()
+	if not email and not phone:
+		frappe.throw(_("Email or phone is required."))
+
+	filters = {}
+	if email and phone:
+		filters = [["customer_email", "=", email], ["customer_phone", "=", phone]]
+	elif email:
+		filters = {"customer_email": email}
+	else:
+		filters = {"customer_phone": phone}
+
+	return frappe.get_all(
+		COZY_ORDER_DOCTYPE,
+		filters=filters,
+		fields=[
+			"name",
+			"creation",
+			"order_status",
+			"payment_status",
+			"order_type",
+			"total_amount",
+			"currency",
+		],
+		order_by="creation desc",
+		limit_page_length=cint(limit) or 10,
+	)
+
+
 def ensure_customer_owns_order(order_doc, allow_staff: bool = False):
 	if allow_staff and set(frappe.get_roles(frappe.session.user)).intersection(STAFF_ROLES):
 		return order_doc
