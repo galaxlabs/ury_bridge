@@ -6,3 +6,4 @@
 # Patches added in this section will be executed after doctypes are migrated
 ury_bridge.patches.v0_0.setup_sales_order_backend
 ury_bridge.patches.v0_0.setup_cozy_order_backend
+ury_bridge.patches.v0_0.setup_delivery_redirect_settings

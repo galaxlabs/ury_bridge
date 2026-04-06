@@ -33,6 +33,12 @@
   "minimum_order_amount",
   "default_delivery_fee",
   "delivery_note",
+  "delivery_redirect_section",
+  "enable_uber_eats_redirect",
+  "uber_eats_store_url",
+  "uber_eats_redirect_message",
+  "delivery_cta_label",
+  "pickup_cta_label",
   "content_section",
   "hero_title",
   "hero_subtitle",
@@ -191,6 +197,40 @@
    "fieldname": "delivery_note",
    "fieldtype": "Small Text",
    "label": "Delivery Note"
+  },
+  {
+   "fieldname": "delivery_redirect_section",
+   "fieldtype": "Section Break",
+   "label": "Delivery Redirect"
+  },
+  {
+   "default": "1",
+   "fieldname": "enable_uber_eats_redirect",
+   "fieldtype": "Check",
+   "label": "Enable Uber Eats Redirect"
+  },
+  {
+   "fieldname": "uber_eats_store_url",
+   "fieldtype": "Data",
+   "label": "Uber Eats Store URL"
+  },
+  {
+   "default": "You will complete delivery order on Uber Eats",
+   "fieldname": "uber_eats_redirect_message",
+   "fieldtype": "Small Text",
+   "label": "Uber Eats Redirect Message"
+  },
+  {
+   "default": "Delivery with Uber Eats",
+   "fieldname": "delivery_cta_label",
+   "fieldtype": "Data",
+   "label": "Delivery CTA Label"
+  },
+  {
+   "default": "Pickup from Cozy Kitchen",
+   "fieldname": "pickup_cta_label",
+   "fieldtype": "Data",
+   "label": "Pickup CTA Label"
   },
   {
    "fieldname": "content_section",

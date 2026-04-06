@@ -22,47 +22,56 @@
    "fieldtype": "Link",
    "label": "Item",
    "options": "Item",
-   "reqd": 1
+   "reqd": 1,
+   "list_view": 1
+
   },
   {
    "fieldname": "item_name",
    "fieldtype": "Data",
    "label": "Item Name",
-   "read_only": 1
+   "read_only": 1,
+   "list_view": 1
   },
   {
    "fieldname": "qty",
    "fieldtype": "Float",
    "label": "Qty",
-   "reqd": 1
+   "reqd": 1,
+   "list_view": 1
   },
   {
-   "fieldname": "rate",
+   "fieldname": "`rate",
    "fieldtype": "Currency",
    "label": "Rate",
-   "reqd": 1
+   "reqd": 1,
+   "list_view": 1               
   },
   {
    "fieldname": "amount",
    "fieldtype": "Currency",
    "label": "Amount",
-   "read_only": 1
+   "read_only": 1,
+   "list_view": 1       
   },
   {
    "fieldname": "source_type",
    "fieldtype": "Select",
    "label": "Source Type",
-   "options": "Item\nProduct Bundle"
+   "options": "Item\nProduct Bundle",
+    "list_view": 1
   },
   {
    "fieldname": "source_name",
    "fieldtype": "Data",
-   "label": "Source Name"
+   "label": "Source Name",
+   "list_view": 1
   },
   {
    "fieldname": "notes",
    "fieldtype": "Small Text",
-   "label": "Notes"
+   "label": "Notes",
+   "list_view": 1
   },
   {
    "fieldname": "variant_snapshot_json",
