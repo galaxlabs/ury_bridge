@@ -534,12 +534,15 @@ def serialize_cozy_order_summary(order_doc) -> dict[str, Any]:
 
 
 def serialize_order_tracking(order_doc) -> dict[str, Any]:
+	available_actions = get_available_workflow_actions(order_doc)
 	return {
 		"order_number": order_doc.name,
 		"order_status": order_doc.order_status,
 		"payment_status": order_doc.payment_status,
 		"order_type": order_doc.order_type,
 		"sales_invoice": order_doc.sales_invoice,
+		"can_cancel": "Cancel" in available_actions,
+		"available_actions": available_actions,
 		"timeline": build_order_timeline(order_doc),
 		"items": [
 			{
@@ -800,6 +803,30 @@ def mark_pickup_paid(order_name: str):
 		frappe.throw(_("Only pickup orders can be marked paid with this action."))
 	order_doc = mark_order_paid(order_name, payment_method=order_doc.payment_method or "Cash")
 	return order_doc
+
+
+def cancel_order_for_customer(order_id: str, email: str | None = None, phone: str | None = None, reason: str | None = None):
+	order_doc = get_order_doc_for_tracking(order_id=order_id, email=email, phone=phone)
+	if order_doc.order_status in FINAL_ORDER_STATUSES:
+		frappe.throw(_("This order can no longer be cancelled."))
+
+	available_actions = get_available_workflow_actions(order_doc)
+	if "Cancel" not in available_actions:
+		frappe.throw(_("This order can no longer be cancelled from the tracking page."))
+
+	def _apply_cancel():
+		live_doc = frappe.get_doc(COZY_ORDER_DOCTYPE, order_doc.name)
+		try:
+			updated_doc = apply_workflow(live_doc, "Cancel")
+		except Exception as exc:
+			frappe.throw(_("Unable to cancel this order: {0}").format(exc))
+		if reason:
+			updated_doc.db_set("cancellation_reason", reason, update_modified=False)
+		updated_doc.reload()
+		update_order_timestamps(updated_doc)
+		return updated_doc
+
+	return run_as_order_system_user(_apply_cancel)
 
 
 def create_pos_order_payload(payload: dict[str, Any]) -> dict[str, Any]:

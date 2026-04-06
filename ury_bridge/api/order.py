@@ -10,6 +10,7 @@ from ury_bridge.utils.invoice import create_sales_invoice_from_cozy_order as bui
 from ury_bridge.utils.order import (
 	apply_cozy_order_workflow_action as apply_order_action,
 	build_cozy_order,
+	cancel_order_for_customer,
 	create_pos_order_payload,
 	ensure_staff_order_access,
 	get_admin_orders as get_admin_order_rows,
@@ -123,6 +124,18 @@ def get_my_orders(limit_start: int = 0, limit_page_length: int = 20):
 def get_order_status(order_id: str, email: str | None = None, phone: str | None = None):
 	order_doc = get_order_doc_for_tracking(order_id=order_id, email=email, phone=phone)
 	return api_response(data=serialize_order_tracking(order_doc))
+
+
+@frappe.whitelist(allow_guest=True)
+def cancel_order(order_id: str, email: str | None = None, phone: str | None = None, reason: str | None = None):
+	order_doc = cancel_order_for_customer(order_id=order_id, email=email, phone=phone, reason=reason)
+	return api_response(
+		data={
+			"order": serialize_cozy_order_summary(order_doc),
+			"tracking": serialize_order_tracking(order_doc),
+		},
+		message="Order cancelled successfully.",
+	)
 
 
 @frappe.whitelist()
