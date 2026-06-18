@@ -50,7 +50,13 @@
   "preparing_order_status",
   "ready_order_status",
   "completed_order_status",
-  "cancelled_order_status"
+  "cancelled_order_status",
+  "whatsapp_notifications_section",
+  "enable_whatsapp_order_alert",
+  "whatsapp_alert_number",
+  "twilio_account_sid",
+  "twilio_auth_token",
+  "twilio_whatsapp_from"
  ],
  "fields": [
   {
@@ -319,6 +325,38 @@
    "fieldname": "cancelled_order_status",
    "fieldtype": "Data",
    "label": "Cancelled Order Status"
+  },
+  {
+   "fieldname": "whatsapp_notifications_section",
+   "fieldtype": "Section Break",
+   "label": "WhatsApp Order Notifications"
+  },
+  {
+   "fieldname": "enable_whatsapp_order_alert",
+   "fieldtype": "Check",
+   "label": "Enable WhatsApp Alert on New Order"
+  },
+  {
+   "fieldname": "whatsapp_alert_number",
+   "fieldtype": "Data",
+   "label": "Alert WhatsApp Number",
+   "description": "Number to receive new order alerts e.g. +447400001049"
+  },
+  {
+   "fieldname": "twilio_account_sid",
+   "fieldtype": "Data",
+   "label": "Twilio Account SID"
+  },
+  {
+   "fieldname": "twilio_auth_token",
+   "fieldtype": "Password",
+   "label": "Twilio Auth Token"
+  },
+  {
+   "fieldname": "twilio_whatsapp_from",
+   "fieldtype": "Data",
+   "label": "Twilio WhatsApp From Number",
+   "description": "e.g. whatsapp:+14155238886"
   }
  ],
  "grid_page_length": 50,

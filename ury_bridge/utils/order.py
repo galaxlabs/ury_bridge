@@ -7,6 +7,7 @@ import frappe
 from frappe import _
 from frappe.model.workflow import apply_workflow
 from frappe.utils import cint, flt, now_datetime, today
+from ury_bridge.utils.whatsapp import send_new_order_whatsapp_alert
 
 from ury_bridge.utils.common import (
 	as_bool,
@@ -490,6 +491,15 @@ def build_cozy_order(
 		}
 	)
 	order_doc.insert(ignore_permissions=True)
+
+	# Send WhatsApp alert to the restaurant's own number (non-blocking background job)
+	frappe.enqueue(
+		send_new_order_whatsapp_alert,
+		order_doc=order_doc,
+		queue="short",
+		now=frappe.flags.in_test,
+	)
+
 	return order_doc
 
 
